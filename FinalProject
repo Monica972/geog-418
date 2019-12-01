@@ -191,6 +191,16 @@ map_LISA <- tm_shape(income.tracts) +
               palette = "viridis", n = 6) 
 map_LISA
 
+## map p-values
+map_pval <- tm_shape(income.tracts) + 
+  tm_polygons(col = "P", 
+              title = "P-Values for Local Moran's I", 
+              style = "fixed", breaks = c(0, 0.005, 0.025, 0.05, 1.0), 
+              palette = "Blues", n = 4, contrast = c(0.5, 1))  +
+  tm_layout(title= "P-Values for the Local Morans I of Median Income in Greater Vancouver, BC", legend.position = c("LEFT", "BOTTOM")) 
+
+map_pval
+
 ##Morans I plot
 
 moran.plot(med.income, inc.lw, zero.policy=NULL, spChk=NULL, labels=NULL, xlab="Median Income", 
