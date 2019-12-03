@@ -651,6 +651,15 @@ map_LISA
 moran.plot(resids, inc.lw, zero.policy=NULL, spChk=NULL, labels=NULL, xlab="Residuals", 
            ylab="Spatially Lagged Residuals", quiet=NULL)
            
+##pvalues
+map_pval <- tm_shape(income.tracts) + 
+  tm_polygons(col = "P", 
+              title = "P-Values for Local Moran's I", 
+              style = "fixed", breaks = c(0, 0.005, 0.025, 0.05, 1.0), 
+              palette = "Blues", n = 4, contrast = c(0.5, 1))  +
+  tm_layout(title= "P-Values for the Local Morans I of Residuals in Greater Vancouver, BC", legend.position = c("LEFT", "BOTTOM")) 
+
+map_pval
 
 ####Geographically Weighted Regression
 
@@ -668,7 +677,7 @@ head(income.pm25.ns)
 
 ###Determine the bandwidth for GWR: this will take a while
 GWRbandwidth <- gwr.sel(income.pm25.ns$Income~income.pm25.ns$var1.pred, 
-                        data=income.pm25, coords=cbind(income.pm25.ns$X,income.pm25.ns$Y),adapt=T) 
+                        data=income.pm25.ns, coords=cbind(income.pm25.ns$X,income.pm25.ns$Y),adapt=T) 
 
 ###Perform GWR on the two variables with the bandwidth determined above
 ###This will take a looooooong while
